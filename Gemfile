@@ -9,6 +9,7 @@ gem "rake", "~> 13.0"
 
 group :development, :test do
   gem "devup"
+  gem "dotenv"
   gem "standard"
   gem "rspec", "~> 3.0"
 end

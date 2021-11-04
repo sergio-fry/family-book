@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     family_book (0.1.0)
+      redis
 
 GEM
   remote: https://rubygems.org/
@@ -18,6 +19,7 @@ GEM
       ast (~> 2.4.1)
     rainbow (3.0.0)
     rake (13.0.6)
+    redis (4.5.1)
     regexp_parser (2.1.1)
     rexml (3.2.5)
     rspec (3.10.0)
@@ -58,6 +60,7 @@ PLATFORMS
 
 DEPENDENCIES
   devup
+  dotenv
   family_book!
   rake (~> 13.0)
   rspec (~> 3.0)

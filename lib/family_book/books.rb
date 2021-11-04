@@ -1,7 +1,20 @@
 module FamilyBook
   class Books
-    def initialize
+    include Enumerable
+
+    def initialize(db)
+      @db = db
       @books = []
+    end
+
+    def each
+      @books.each do |book|
+        yield book
+      end
+    end
+
+    def <<(book)
+      @books << book
     end
   end
 end
