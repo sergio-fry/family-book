@@ -3,6 +3,7 @@ PATH
   specs:
     family_book (0.1.0)
       rake
+      roda
       sequel
 
 GEM
@@ -18,10 +19,13 @@ GEM
     parallel (1.21.0)
     parser (3.0.2.0)
       ast (~> 2.4.1)
+    rack (2.2.3)
     rainbow (3.0.0)
     rake (13.0.6)
     regexp_parser (2.1.1)
     rexml (3.2.5)
+    roda (3.49.0)
+      rack
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
