@@ -1,6 +1,6 @@
 module FamilyBook
   class Book
-    attr_reader :format, :position
+    attr_reader :id, :format, :position
 
     def initialize(format:, file:, id: nil, position: 0)
       @id = id

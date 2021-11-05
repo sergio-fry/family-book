@@ -11,6 +11,7 @@ gem "sqlite3"
 group :development, :test do
   gem "devup"
   gem "dotenv"
-  gem "standard"
+  gem "pry"
   gem "rspec", "~> 3.0"
+  gem "standard"
 end

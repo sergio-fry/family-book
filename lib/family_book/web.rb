@@ -1,4 +1,5 @@
 require "roda"
+require "pry"
 
 require "family_book/books"
 require "family_book/book"
@@ -22,6 +23,10 @@ module FamilyBook
 
       r.post "upload" do
         books = Books.new
+        books << Book.new(
+          format: 'epub',
+          file:  r.params['book']['file'][:tempfile],
+        )
         r.redirect "/books"
       end
 

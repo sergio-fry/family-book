@@ -15,7 +15,16 @@ class MyContainer
 
   register "db" do
     require "sequel"
-    Sequel.connect(ENV.fetch("DATABASE_URL"))
+    Sequel.connect(ENV.fetch("DATABASE_URL"), logger: resolve(:logger))
+  end
+
+  register "logger" do
+    require "logger"
+
+    logger = Logger.new(STDOUT)
+    logger.level = ENV.fetch("LOGGER_LEVEL", "debug")
+
+    logger
   end
 end
 

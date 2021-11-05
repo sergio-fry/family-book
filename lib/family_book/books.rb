@@ -24,7 +24,7 @@ module FamilyBook
     def <<(book)
       db[:books].insert(
         format: book.format,
-        file_content: book.file_content,
+        file_content: Sequel.blob(book.file_content),
         position: book.position
       )
     end
