@@ -4,13 +4,10 @@ require "family_book/book"
 module FamilyBook
   class Books
     include Enumerable
-
-    def initialize(db)
-      @db = db
-    end
+    include FamilyBook.import["db"]
 
     def each
-      @db[:books].each do |attrs|
+      db[:books].each do |attrs|
         file = Tempfile.new("book_content")
         file.write attrs[:file_content]
         file.rewind
@@ -25,7 +22,7 @@ module FamilyBook
     end
 
     def <<(book)
-      @db[:books].insert(
+      db[:books].insert(
         format: book.format,
         file_content: book.file_content,
         position: book.position

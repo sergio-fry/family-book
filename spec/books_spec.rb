@@ -3,12 +3,7 @@ require "family_book/books"
 
 module FamilyBook
   RSpec.describe Books do
-    let(:books) { described_class.new(db) }
-    let(:db) { Sequel.sqlite }
-    before do
-      Sequel.extension :migration
-      Sequel::Migrator.run(db, FamilyBook.root.join("db/migrations"), use_transactions: true)
-    end
+    let(:books) { described_class.new }
 
     let(:book) do
       double(

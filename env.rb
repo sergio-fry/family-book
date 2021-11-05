@@ -7,3 +7,16 @@ if ENV.fetch("APP_ENV") == "development"
 end
 
 Dotenv.load(".env", ".env.#{ENV.fetch("APP_ENV")}", ".env.#{ENV.fetch("APP_ENV")}.local")
+
+require "dry-container"
+
+class MyContainer
+  extend Dry::Container::Mixin
+
+  register "db" do
+    Sequel.connect(ENV.fetch("DATABASE_URL"))
+  end
+end
+
+require "family_book"
+FamilyBook.dependencies = MyContainer
