@@ -1,19 +1,36 @@
+require "pry"
+
 module FamilyBook
   class Book
-    attr_reader :id, :format, :position
+    include FamilyBook.import["db"]
 
-    def initialize(format:, file:, id: nil, position: nil)
+    attr_reader :id
+
+    def initialize(id, *args)
+      super(*args)
       @id = id
-      @format = format
-      @file = file
-      @position = position
+    end
+
+    def format
+      db[:books].select(:format).where(id: @id).first[:format]
     end
 
     def file_content
-      content = @file.read
-      @file.rewind
+      content = nil
+
+      Tempfile.create("book_content") do |file|
+        file.write db[:books].select(:file_content).where(id: @id).first[:file_content]
+
+        file.rewind
+
+        content = file.read
+      end
 
       content
+    end
+
+    def position
+      db[:books].select(:position).where(id: @id).first[:position]
     end
   end
 end
