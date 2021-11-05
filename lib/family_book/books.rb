@@ -1,20 +1,26 @@
+require "family_book/book"
+
 module FamilyBook
   class Books
     include Enumerable
 
     def initialize(db)
       @db = db
-      @books = []
     end
 
     def each
-      @books.each do |book|
-        yield book
+      @db[:books].each do |attrs|
+        yield Book.new(
+          id: attrs[:id],
+          format: attrs[:format]
+        )
       end
     end
 
     def <<(book)
-      @books << book
+      @db[:books].insert(
+        format: book.format
+      )
     end
   end
 end

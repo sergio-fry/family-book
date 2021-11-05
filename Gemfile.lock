@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     family_book (0.1.0)
-      redis
+      sequel
 
 GEM
   remote: https://rubygems.org/
@@ -19,7 +19,6 @@ GEM
       ast (~> 2.4.1)
     rainbow (3.0.0)
     rake (13.0.6)
-    redis (4.5.1)
     regexp_parser (2.1.1)
     rexml (3.2.5)
     rspec (3.10.0)
@@ -50,6 +49,8 @@ GEM
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.11.0)
+    sequel (5.50.0)
+    sqlite3 (1.4.2)
     standard (1.4.0)
       rubocop (= 1.22.3)
       rubocop-performance (= 1.11.5)
@@ -64,6 +65,7 @@ DEPENDENCIES
   family_book!
   rake (~> 13.0)
   rspec (~> 3.0)
+  sqlite3
   standard
 
 BUNDLED WITH

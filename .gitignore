@@ -9,4 +9,4 @@
 /.env.services
 
 # rspec failure tracking
-.rspec_status
+.spec/examples.txt
