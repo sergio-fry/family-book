@@ -9,6 +9,8 @@ module FamilyBook
     plugin :render, {
       views: File.join(__dir__, "web/views")
     }
+    # plugin :static, ["static"], root: File.join(__dir__, "web/static")
+    plugin :static, ["/node_modules", "/books"], root: FamilyBook.root
 
     route do |r|
       r.root do

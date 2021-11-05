@@ -13,3 +13,6 @@
 /spec/examples.txt
 
 /db/*.sqlite3
+
+/node_modules
+/books

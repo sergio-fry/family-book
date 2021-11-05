@@ -1,11 +1,88 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/epub.js/0.2.15/epub.min.js" integrity="sha512-5wAFsOdRwzWaCMwQvCIbT3IPT5ESRki2ikvjsSjbmf1NfGUAobG2VtneOoEFIb7pjmWKS35NOo5slkPjNjG25A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ 
+ 
+<link rel="stylesheet" type="text/css" href="/node_modules/epubjs/examples/examples.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+<script src="/node_modules/jszip/dist/jszip.min.js"></script>
+<script src="/node_modules/epubjs/dist/epub.min.js"></script>
 
-<div id="area"></div>
+  <style type="text/css">
+    body {
+      display: flex;
+      -webkit-align-items: center;
+      -webkit-justify-content: center;
+    }
+
+    #viewer {
+      width: 290px;
+      height: 580px;
+      box-shadow: 0 0 4px #ccc;
+      padding: 10px 10px 0px 10px;
+      margin: 5px auto;
+      background: white;
+    }
+
+
+    @media only screen
+      and (min-device-width : 320px)
+      and (max-device-width : 667px) {
+        #viewer {
+          height: 96.5%;
+        }
+        #viewer iframe {
+          /* pointer-events: none; */
+        }
+        .arrow {
+          position: inherit;
+          display: none;
+        }
+    }
+
+  </style>
+
+
+
+<div id="viewer" class="spreads"></div>
+<div id="prev" class="arrow">‹</div>
+<div id="next" class="arrow">›</div>
 
 
 <script>
-  var book = ePub("/epubs/<%= book.id %>");
-  var rendition = book.renderTo("area", {width: 600, height: 400});
+  var book = ePub("/books/book1.epub");
+  var rendition1 = book.renderTo("viewer", {
+    width: "100%",
+    height: "100%",
+  });
+  var rendition = book.renderTo("viewer", {
+    manager: "continuous",
+    flow: "paginated",
+    width: "100%",
+    height: "100%",
+    snap: true
+  });
+
   var displayed = rendition.display();
+
+
+  var keyListener = function(e){
+
+    // Left Key
+    if ((e.keyCode || e.which) == 37) {
+      rendition.prev();
+    }
+
+    // Right Key
+    if ((e.keyCode || e.which) == 39) {
+      rendition.next();
+    }
+
+  };
+
+  rendition.on("keyup", keyListener);
+  document.addEventListener("keyup", keyListener, false);
+
+  var msg = document.getElementById('offline');
+  book.storage.on("online", function () {
+    console.log("online");
+    msg.style.top = "-40px";
+  });
 </script>
