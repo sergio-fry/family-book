@@ -7,6 +7,9 @@
 /spec/reports/
 /tmp/
 /.env.services
+/.env.*.local
 
 # rspec failure tracking
 /spec/examples.txt
+
+/db/*.sqlite3

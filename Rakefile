@@ -10,6 +10,9 @@ task default: :spec
 desc "DB migrate"
 task "db:migrate" do
   require "sequel"
+  require_relative "env"
+  require "family_book"
+
   Sequel.extension :migration
 
   db = Sequel.connect(ENV.fetch("DATABASE_URL"))
