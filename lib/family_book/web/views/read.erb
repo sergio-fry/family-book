@@ -1,0 +1,11 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/epub.js/0.2.15/epub.min.js" integrity="sha512-5wAFsOdRwzWaCMwQvCIbT3IPT5ESRki2ikvjsSjbmf1NfGUAobG2VtneOoEFIb7pjmWKS35NOo5slkPjNjG25A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div id="area"></div>
+
+
+<script>
+  var book = ePub("/epubs/<%= book.id %>");
+  var rendition = book.renderTo("area", {width: 600, height: 400});
+  var displayed = rendition.display();
+</script>

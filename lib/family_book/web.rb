@@ -13,7 +13,13 @@ module FamilyBook
     route do |r|
       r.root do
         r.get do
-          "hello!"
+          books = Books.new
+
+          if books.current.nil?
+            r.redirect "/new"
+          else
+            render("read", locals: { book: books.current } )
+          end
         end
       end
 
@@ -34,6 +40,13 @@ module FamilyBook
         books = Books.new
         render("books", locals: {books: books})
       end
+
+      r.get "epubs", Integer do |id|
+        books = Books.new
+        book books.find { |book| book.id == id }
+        book.file_content
+      end
+
     end
   end
 end

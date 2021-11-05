@@ -28,5 +28,9 @@ module FamilyBook
         position: book.position
       )
     end
+
+    def current
+      first
+    end
   end
 end
