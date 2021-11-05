@@ -22,10 +22,18 @@ module FamilyBook
     end
 
     def <<(book)
-      db[:books].insert(
+      create(
         format: book.format,
-        file_content: Sequel.blob(book.file_content),
+        file_content: book.file_content,
         position: book.position
+      )
+    end
+
+    def create(attrs)
+      db[:books].insert(
+        format: attrs[:format],
+        file_content: Sequel.blob(attrs[:file_content]),
+        position: attrs[:position]
       )
     end
 
