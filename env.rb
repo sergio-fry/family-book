@@ -14,6 +14,7 @@ class MyContainer
   extend Dry::Container::Mixin
 
   register "db" do
+    require "sequel"
     Sequel.connect(ENV.fetch("DATABASE_URL"))
   end
 end
