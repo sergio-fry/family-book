@@ -1,23 +1,12 @@
  
- 
-<link rel="stylesheet" type="text/css" href="/node_modules/epubjs/examples/examples.css">
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <script src="/node_modules/jszip/dist/jszip.min.js"></script>
 <script src="/node_modules/epubjs/dist/epub.min.js"></script>
 
-  <style type="text/css">
-    body {
-      display: flex;
-      -webkit-align-items: center;
-      -webkit-justify-content: center;
-    }
-
+<style type="text/css">
     #viewer {
-      width: 290px;
-      height: 580px;
-      box-shadow: 0 0 4px #ccc;
-      padding: 10px 10px 0px 10px;
-      margin: 5px auto;
+      box-shadow: 0 0 0px #ccc;
       background: white;
     }
 
@@ -25,64 +14,66 @@
     @media only screen
       and (min-device-width : 320px)
       and (max-device-width : 667px) {
-        #viewer {
-          height: 96.5%;
-        }
-        #viewer iframe {
-          /* pointer-events: none; */
-        }
-        .arrow {
-          position: inherit;
-          display: none;
-        }
+      #viewer {
+        height: 96.5%;
+      }
+      #viewer iframe {
+        /* pointer-events: none; */
+      }
     }
-
-  </style>
-
+</style>
 
 
-<div id="viewer" class="spreads"></div>
-<div id="prev" class="arrow">‹</div>
-<div id="next" class="arrow">›</div>
+<body>
+  <div id="viewer" class="spreads"></div>
+</body>
 
 
 <script>
-  var book = ePub("/books/book1.epub");
-  var rendition1 = book.renderTo("viewer", {
-    width: "100%",
-    height: "100%",
-  });
-  var rendition = book.renderTo("viewer", {
-    manager: "continuous",
-    flow: "paginated",
-    width: "100%",
-    height: "100%",
-    snap: true
-  });
+var book = ePub("/epubs/1.epub");
 
-  var displayed = rendition.display();
+var rendition = book.renderTo("viewer", {
+  manager: "continuous",
+  flow: "paginated",
+  width: "100%",
+  height: "95%",
+  snap: true
+});
 
 
-  var keyListener = function(e){
+var displayed = rendition.display();
 
-    // Left Key
-    if ((e.keyCode || e.which) == 37) {
-      rendition.prev();
-    }
 
-    // Right Key
-    if ((e.keyCode || e.which) == 39) {
-      rendition.next();
-    }
 
-  };
+var keyListener = function(e){
+  // Left Key
+  if ((e.keyCode || e.which) == 37) {
+    rendition.prev();
+  }
 
-  rendition.on("keyup", keyListener);
-  document.addEventListener("keyup", keyListener, false);
+  // Right Key
+  if ((e.keyCode || e.which) == 39) {
+    rendition.next();
 
-  var msg = document.getElementById('offline');
-  book.storage.on("online", function () {
-    console.log("online");
-    msg.style.top = "-40px";
-  });
+  }
+
+};
+
+// TODO save position console.log(rendition.location.start);
+
+var once = false
+rendition.on("displayed", function() {
+
+  // TODO fetch real position
+  var cfi = "epubcfi(/6/10[id85]!/4/2[id3]/102/1:0)";
+
+  if(!once) {
+    // rendition.display(cfi)
+    once = true;
+  }
+});
+
+rendition.on("keyup", keyListener);
+book.on("keyup", keyListener);
+document.addEventListener("keyup", keyListener, false);
 </script>

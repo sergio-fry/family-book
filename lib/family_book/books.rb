@@ -16,7 +16,7 @@ module FamilyBook
           id: attrs[:id],
           format: attrs[:format],
           file: file,
-          position: attrs[:position].to_i
+          position: attrs[:position]
         )
       end
     end

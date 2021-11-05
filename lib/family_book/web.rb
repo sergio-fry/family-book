@@ -12,11 +12,13 @@ module FamilyBook
     # plugin :static, ["static"], root: File.join(__dir__, "web/static")
     plugin :static, ["/node_modules", "/books"], root: FamilyBook.root
 
+    def books
+      Books.new
+    end
+
     route do |r|
       r.root do
         r.get do
-          books = Books.new
-
           if books.current.nil?
             r.redirect "/new"
           else
@@ -30,7 +32,6 @@ module FamilyBook
       end
 
       r.post "upload" do
-        books = Books.new
         books << Book.new(
           format: 'epub',
           file:  r.params['book']['file'][:tempfile],
@@ -39,16 +40,13 @@ module FamilyBook
       end
 
       r.get "books" do
-        books = Books.new
         render("books", locals: {books: books})
       end
 
-      r.get "epubs", Integer do |id|
-        books = Books.new
-        book books.find { |book| book.id == id }
+      r.get "epubs/1.epub" do |id, format|
+        book = books.first
         book.file_content
       end
-
     end
   end
 end

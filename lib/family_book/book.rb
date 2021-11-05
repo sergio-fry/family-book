@@ -2,7 +2,7 @@ module FamilyBook
   class Book
     attr_reader :id, :format, :position
 
-    def initialize(format:, file:, id: nil, position: 0)
+    def initialize(format:, file:, id: nil, position: nil)
       @id = id
       @format = format
       @file = file

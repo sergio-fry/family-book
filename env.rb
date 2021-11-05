@@ -10,7 +10,7 @@ Dotenv.load(".env", ".env.#{ENV.fetch("APP_ENV")}", ".env.#{ENV.fetch("APP_ENV")
 
 require "dry-container"
 
-class MyContainer
+class AppContainer
   extend Dry::Container::Mixin
 
   register "db" do
@@ -29,4 +29,4 @@ class MyContainer
 end
 
 require "family_book"
-FamilyBook.dependencies = MyContainer
+FamilyBook.dependencies = AppContainer

@@ -1,6 +1,8 @@
 ENV["APP_ENV"] ||= "test"
 
+require 'dry/container/stub'
 require_relative "../env"
+AppContainer.enable_stubs!
 
 require "family_book"
 
