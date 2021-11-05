@@ -1,0 +1,9 @@
+require "dotenv"
+
+ENV["APP_ENV"] ||= "production"
+
+if ENV.fetch("APP_ENV") == "development"
+  Dotenv.load(".env.services")
+end
+
+Dotenv.load(".env", ".env.#{ENV.fetch("APP_ENV")}", ".env.#{ENV.fetch("APP_ENV")}.local")

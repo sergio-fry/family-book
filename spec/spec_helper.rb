@@ -1,5 +1,5 @@
-require 'dotenv'
-Dotenv.load('.env.services')
+require "dotenv"
+Dotenv.load(".env.services")
 
 require "family_book"
 
