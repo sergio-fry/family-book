@@ -1,5 +1,3 @@
-require "pry"
-
 module FamilyBook
   class Book
     include FamilyBook.import["db"]
