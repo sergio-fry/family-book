@@ -13,7 +13,6 @@ module FamilyBook
       )
     end
 
-
     context do
       before { book.save }
     end
