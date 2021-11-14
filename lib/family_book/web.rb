@@ -47,10 +47,13 @@ module FamilyBook
           end
         end
 
-        r.post Integer, "position" do |id|
+        r.on Integer do |id|
           book = books.find(id)
-          book.position = r.params["position"]
-          ""
+
+          r.post "position" do
+            book.position = r.params["position"]
+            ""
+          end
         end
 
         r.get do
