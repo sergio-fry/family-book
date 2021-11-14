@@ -43,6 +43,13 @@ var rendition = book.renderTo("viewer", {
 
 var displayed = rendition.display();
 
+var savePosition = function() {
+    $.ajax({
+        type: "POST",
+        url: '/books/<%= book.id %>/position',
+        data: { position: rendition.location.start.cfi}
+      });
+  }
 
 
 var keyListener = function(e){
@@ -54,21 +61,17 @@ var keyListener = function(e){
   // Right Key
   if ((e.keyCode || e.which) == 39) {
     rendition.next();
-
   }
 
+  savePosition();
 };
 
-// TODO save position console.log(rendition.location.start);
 
 var once = false
 rendition.on("displayed", function() {
 
-  // TODO fetch real position
-  var cfi = "epubcfi(/6/10[id85]!/4/2[id3]/102/1:0)";
-
   if(!once) {
-    // rendition.display(cfi)
+    rendition.display("<%= book.position %>")
     once = true;
   }
 });

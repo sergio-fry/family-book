@@ -7,6 +7,7 @@ gemspec
 
 gem "rake", "~> 13.0"
 gem "sqlite3"
+gem "puma"
 
 group :development, :test do
   gem "devup"
@@ -18,5 +19,4 @@ end
 
 group :test do
   gem "rack-test"
-
 end
