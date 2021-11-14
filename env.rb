@@ -21,10 +21,15 @@ class AppContainer
   register "logger" do
     require "logger"
 
-    logger = Logger.new(STDOUT)
+    logger = Logger.new($stdout)
     logger.level = ENV.fetch("LOGGER_LEVEL", "debug")
 
     logger
+  end
+
+  register "books" do
+    require "family_book/books"
+    FamilyBook::Books.new
   end
 end
 

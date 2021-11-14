@@ -4,11 +4,14 @@ require "family_book/book"
 
 module FamilyBook
   class Web < Roda
+    include FamilyBook.import["logger", "books"]
+
     plugin :render, {
       views: File.join(__dir__, "web/views")
     }
     # plugin :static, ["static"], root: File.join(__dir__, "web/static")
     plugin :static, ["/node_modules", "/books"], root: FamilyBook.root
+    plugin :path_matchers
 
     def books
       Books.new
@@ -30,9 +33,10 @@ module FamilyBook
       end
 
       r.post "upload" do
-        books << Book.new(
+        books.create(
           format: "epub",
-          file: r.params["book"]["file"][:tempfile]
+          file_content: r.params["book"]["file"][:tempfile].read,
+          position: ""
         )
         r.redirect "/books"
       end
@@ -41,9 +45,15 @@ module FamilyBook
         render("books", locals: {books: books})
       end
 
-      r.get "epubs/1.epub" do |id, format|
-        book = books.first
-        book.file_content
+      r.on "files" do
+        r.on extension: "epub" do |id|
+          r.get do
+            book = books.find { |book| book.id == id.to_i }
+            logger.debug book.file_content
+
+            book.file_content
+          end
+        end
       end
     end
   end

@@ -30,7 +30,7 @@
 
 
 <script>
-var book = ePub("/epubs/1.epub");
+var book = ePub("/files/<%= book.id %>.epub");
 
 var rendition = book.renderTo("viewer", {
   manager: "continuous",
