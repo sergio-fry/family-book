@@ -37,11 +37,7 @@ module FamilyBook
         r.redirect "/books"
       end
 
-      r.get "books" do
-        render("books", locals: {books: books})
-      end
-
-      r.on "files" do
+      r.on "books" do
         r.on extension: "epub" do |id|
           r.get do
             book = books.find { |book| book.id == id.to_i }
@@ -49,6 +45,10 @@ module FamilyBook
 
             book.file_content
           end
+        end
+
+        r.get do
+          render("books", locals: {books: books})
         end
       end
     end
