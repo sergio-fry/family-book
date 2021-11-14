@@ -23,7 +23,7 @@ module FamilyBook
     end
 
     def current
-      first
+      Book.new db[:books].order(:id).last[:id]
     end
   end
 end

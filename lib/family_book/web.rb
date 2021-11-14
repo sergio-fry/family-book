@@ -41,7 +41,6 @@ module FamilyBook
         r.on extension: "epub" do |id|
           r.get do
             book = books.find { |book| book.id == id.to_i }
-            logger.debug book.file_content
 
             book.file_content
           end

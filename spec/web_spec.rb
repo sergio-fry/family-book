@@ -56,6 +56,7 @@ module FamilyBook
     end
 
     context do
+      let(:book) { double(:book, id: 1, file_content: "book here") }
       before { get "/books/1.epub" }
       it { expect(last_response).to be_ok }
       it { expect(last_response.body).to eq "book here" }
