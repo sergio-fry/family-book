@@ -18,5 +18,10 @@ module FamilyBook
       before { book.file_content = "content" }
       it { expect(book.file_content).to eq "content" }
     end
+
+    context do
+      before { book.position = "CHAPTER#1" }
+      it { expect(book.position).to eq "CHAPTER#1" }
+    end
   end
 end

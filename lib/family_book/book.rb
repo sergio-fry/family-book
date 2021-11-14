@@ -10,24 +10,38 @@ module FamilyBook
       @id = id
     end
 
-    def file_content=(new_value)
-      db[:books].where(Sequel[:id] => @id).update(file_content: new_value)
+    def file_content=(value)
+      write_attr :file_content, value
     end
 
     def file_content
-      db[:books].select(:file_content).where(id: @id).first[:file_content]
+      read_attr :file_content
     end
 
-    def format=(new_format)
-      db[:books].where(Sequel[:id] => @id).update(format: new_format)
+    def format=(value)
+      write_attr :format, value
     end
 
     def format
-      db[:books].select(:format).where(id: @id).first[:format]
+      read_attr :format
+    end
+
+    def position=(value)
+      write_attr :position, value
     end
 
     def position
-      db[:books].select(:position).where(id: @id).first[:position]
+      read_attr :position
+    end
+
+    private
+
+    def read_attr(attr)
+      db[:books].select(attr).where(id: @id).first[attr]
+    end
+
+    def write_attr(name, value)
+      db[:books].where(id => @id).update(name => value)
     end
   end
 end
