@@ -10,12 +10,8 @@ module FamilyBook
       views: File.join(__dir__, "web/views")
     }
     # plugin :static, ["static"], root: File.join(__dir__, "web/static")
-    plugin :static, ["/node_modules", "/books"], root: FamilyBook.root
+    plugin :static, ["/node_modules"], root: FamilyBook.root
     plugin :path_matchers
-
-    def books
-      Books.new
-    end
 
     route do |r|
       r.root do
