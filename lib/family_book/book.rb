@@ -1,3 +1,4 @@
+require "pry"
 module FamilyBook
   class Book
     include FamilyBook.import["db"]
@@ -7,6 +8,18 @@ module FamilyBook
     def initialize(id, *args)
       super(*args)
       @id = id
+    end
+
+    def file_content=(new_value)
+      db[:books].where(Sequel[:id] => @id).update(file_content: new_value)
+    end
+
+    def file_content
+      db[:books].select(:format).where(id: @id).first[:file_content]
+    end
+
+    def format=(new_format)
+      db[:books].where(Sequel[:id] => @id).update(format: new_format)
     end
 
     def format

@@ -1,20 +1,22 @@
 require "family_book/book"
+require "family_book/books"
 
 module FamilyBook
   RSpec.describe Book do
     before { AppContainer.resolve(:db)[:books].truncate }
+    let(:books) { Books.new }
 
-    let(:book) do
-      described_class.new(
-        id: 1,
-        format: "epub",
-        file_content: "123",
-        position: "loc#1"
-      )
+    let(:book_attrs) { {format: "epub", file_content: "", position: ""} }
+    let(:book) { books.create book_attrs }
+
+    context do
+      before { book.format = "fb2" }
+      it { expect(book.format).to eq "fb2" }
     end
 
     context do
-      before { book.save }
+      before { book.file_content = "content" }
+      it { expect(book.file_content).to eq "content" }
     end
   end
 end
