@@ -25,5 +25,9 @@ module FamilyBook
     def current
       Book.new db[:books].order(:id).last[:id]
     end
+
+    def find(id)
+      Book.new id
+    end
   end
 end

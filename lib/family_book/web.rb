@@ -12,6 +12,7 @@ module FamilyBook
     # plugin :static, ["static"], root: File.join(__dir__, "web/static")
     plugin :static, ["/node_modules"], root: FamilyBook.root
     plugin :path_matchers
+    plugin :json_parser
 
     route do |r|
       r.root do
@@ -40,10 +41,16 @@ module FamilyBook
       r.on "books" do
         r.on extension: "epub" do |id|
           r.get do
-            book = books.find { |book| book.id == id.to_i }
+            book = books.find(id)
 
             book.file_content
           end
+        end
+
+        r.post Integer, "position" do |id|
+          book = books.find(id)
+          book.position = r.params["position"]
+          ""
         end
 
         r.get do

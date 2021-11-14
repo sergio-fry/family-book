@@ -21,6 +21,21 @@ module FamilyBook
           yield el
         end
       end
+
+      def find(id)
+        @collection.find { |el| el.id.to_i == id.to_i }
+      end
+    end
+
+    class FakeBook
+      attr_reader :id
+      attr_accessor :position, :file_content, :format
+      def initialize(attrs)
+        @id = attrs[:id]
+        @position = attrs[:position]
+        @file_content = attrs[:file_content]
+        @format = attrs[:format]
+      end
     end
   end
 
@@ -38,7 +53,7 @@ module FamilyBook
 
     let(:books_repo) { Tests::FakeBooks.new books }
     let(:books) { [book] }
-    let(:book) { double(:book, id: 1, file_content: "book here") }
+    let(:book) { Tests::FakeBook.new(id: 1) }
 
     context do
       before { get "/" }
@@ -53,6 +68,12 @@ module FamilyBook
     context do
       before { get "/books" }
       it { expect(last_response).to be_ok }
+    end
+
+    context do
+      before { post "/books/1/position", {position: "Chapter#123"}.to_json, {"CONTENT_TYPE" => "application/json"} }
+      it { expect(last_response).to be_ok }
+      it { expect(book.position).to eq "Chapter#123" }
     end
 
     context do

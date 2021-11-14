@@ -2,8 +2,9 @@ require "dotenv"
 
 ENV["APP_ENV"] ||= "production"
 
-if ENV.fetch("APP_ENV") == "development"
+if %w[development test].include? ENV.fetch("APP_ENV")
   Dotenv.load(".env.services")
+  require "pry"
 end
 
 Dotenv.load(".env", ".env.#{ENV.fetch("APP_ENV")}", ".env.#{ENV.fetch("APP_ENV")}.local")
